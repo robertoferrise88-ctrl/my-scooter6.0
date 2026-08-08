@@ -583,7 +583,45 @@ body {
 
     outline: none;
 }
+.apply-button {
 
+    width:100%;
+
+    margin-top:18px;
+
+    padding:15px;
+
+    border-radius:15px;
+
+    border:none;
+
+    background:
+    linear-gradient(
+        135deg,
+        #347cff,
+        #5b58ff
+    );
+
+    color:white;
+
+    font-size:15px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+    box-shadow:
+    0 8px 25px
+    rgba(60,100,255,.25);
+
+}
+
+
+.apply-button:active {
+
+    transform:scale(.97);
+
+}
 
 .slider::-webkit-slider-thumb {
 
@@ -1175,7 +1213,9 @@ button {
         step="1"
         oninput="changeLimit(this.value)"
     >
-
+<button class="apply-button" onclick="applySpeedLimit()">
+    ✓ Anwenden
+</button>
 
     <div class="slider-info">
 
