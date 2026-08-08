@@ -1688,12 +1688,21 @@ async function connectScooter() {
 
 
         bluetoothDevice =
-            await navigator.bluetooth.requestDevice({
+    await navigator.bluetooth.requestDevice({
 
-                acceptAllDevices:
-                    true
+        filters: [
+            {
+                services: [
+                    "0000fe95-0000-1000-8000-00805f9b34fb"
+                ]
+            }
+        ],
 
-            });
+        optionalServices: [
+            "0000fe95-0000-1000-8000-00805f9b34fb"
+        ]
+
+    });
 
 
         const name =
