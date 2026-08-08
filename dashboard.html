@@ -1,0 +1,1842 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<meta
+    name="theme-color"
+    content="#070a0f"
+>
+
+<title>My Scooter – Dashboard</title>
+
+
+<!-- QR SCANNER -->
+
+<script
+    src="https://unpkg.com/html5-qrcode"
+    type="text/javascript">
+</script>
+
+
+<style>
+
+/* =========================
+   GRUNDLAYOUT
+========================= */
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+
+    margin: 0;
+
+    min-height: 100vh;
+
+    background:
+        radial-gradient(
+            circle at 50% -10%,
+            #19344b 0%,
+            #0b1017 42%,
+            #05070a 100%
+        );
+
+    color: white;
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
+}
+
+
+.app {
+
+    width: min(1100px, 94%);
+
+    margin: auto;
+
+    padding:
+        25px
+        0
+        60px;
+}
+
+
+/* =========================
+   HEADER
+========================= */
+
+.header {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin-bottom: 25px;
+}
+
+
+.logo {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+}
+
+
+.logo-icon {
+
+    width: 46px;
+    height: 46px;
+
+    border-radius: 15px;
+
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    font-size: 23px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #54e7ff,
+            #467cff
+        );
+
+    box-shadow:
+        0 0 30px
+        rgba(70,124,255,.3);
+}
+
+
+.logo-text h1 {
+
+    margin: 0;
+
+    font-size: 21px;
+
+    letter-spacing: 1px;
+}
+
+
+.logo-text p {
+
+    margin:
+        4px
+        0
+        0;
+
+    color: #718096;
+
+    font-size: 11px;
+}
+
+
+.connection {
+
+    padding:
+        9px
+        14px;
+
+    border-radius: 30px;
+
+    background: #111820;
+
+    border:
+        1px solid
+        #27323d;
+
+    color: #8795a4;
+
+    font-size: 12px;
+}
+
+
+/* =========================
+   SPEED CARD
+========================= */
+
+.speed-card {
+
+    position: relative;
+
+    overflow: hidden;
+
+    background:
+        linear-gradient(
+            145deg,
+            #121a23,
+            #080d13
+        );
+
+    border:
+        1px solid
+        #26313d;
+
+    border-radius: 30px;
+
+    padding: 32px;
+
+    box-shadow:
+        0 25px 70px
+        rgba(0,0,0,.35);
+}
+
+
+.speed-card::after {
+
+    content: "";
+
+    position: absolute;
+
+    width: 300px;
+    height: 300px;
+
+    right: -140px;
+    top: -140px;
+
+    border-radius: 50%;
+
+    background:
+        #368cff;
+
+    opacity: .07;
+
+    filter: blur(5px);
+
+    pointer-events: none;
+}
+
+
+.label {
+
+    color: #718096;
+
+    font-size: 11px;
+
+    letter-spacing: 2px;
+
+    text-transform: uppercase;
+
+    font-weight: bold;
+}
+
+
+.speed {
+
+    margin-top: 12px;
+
+    font-size:
+        clamp(
+            80px,
+            14vw,
+            150px
+        );
+
+    line-height: .85;
+
+    font-weight: 800;
+
+    letter-spacing: -7px;
+}
+
+
+.speed-unit {
+
+    color: #718096;
+
+    font-size: 15px;
+
+    margin-left: 8px;
+}
+
+
+.status {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    margin-top: 25px;
+
+    padding:
+        9px
+        14px;
+
+    border-radius: 30px;
+
+    background: #151d26;
+
+    border:
+        1px solid
+        #293440;
+
+    color: #8997a6;
+
+    font-size: 12px;
+}
+
+
+.status-dot {
+
+    width: 7px;
+    height: 7px;
+
+    border-radius: 50%;
+
+    background: #64748b;
+}
+
+
+/* =========================
+   INFO GRID
+========================= */
+
+.grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap: 15px;
+
+    margin-top: 15px;
+}
+
+
+.card {
+
+    background:
+        rgba(
+            15,
+            21,
+            29,
+            .92
+        );
+
+    border:
+        1px solid
+        #252f3a;
+
+    border-radius: 22px;
+
+    padding: 22px;
+}
+
+
+.card-title {
+
+    color: #718096;
+
+    font-size: 10px;
+
+    letter-spacing: 2px;
+
+    text-transform: uppercase;
+}
+
+
+.card-value {
+
+    margin-top: 10px;
+
+    font-size: 27px;
+
+    font-weight: 700;
+}
+
+
+/* =========================
+   AKKU
+========================= */
+
+.battery-bar {
+
+    height: 9px;
+
+    background: #222b34;
+
+    border-radius: 20px;
+
+    margin-top: 18px;
+
+    overflow: hidden;
+}
+
+
+.battery-fill {
+
+    width: 0%;
+
+    height: 100%;
+
+    border-radius: 20px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #32d399,
+            #5ee7ff
+        );
+
+    transition:
+        width .4s ease;
+}
+
+
+/* =========================
+   MODE
+========================= */
+
+.mode-buttons {
+
+    display: flex;
+
+    gap: 8px;
+
+    margin-top: 18px;
+}
+
+
+.mode {
+
+    flex: 1;
+
+    border:
+        1px solid
+        #2a3540;
+
+    background: #151c24;
+
+    color: #8996a5;
+
+    border-radius: 14px;
+
+    padding: 14px 8px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: .2s;
+}
+
+
+.mode.active {
+
+    background:
+        linear-gradient(
+            135deg,
+            #347cff,
+            #5b58ff
+        );
+
+    border-color: transparent;
+
+    color: white;
+
+    box-shadow:
+        0 8px 25px
+        rgba(60,100,255,.25);
+}
+
+
+/* =========================
+   LICHT
+========================= */
+
+.light-button {
+
+    width: 100%;
+
+    margin-top: 18px;
+
+    padding: 14px;
+
+    border-radius: 14px;
+
+    background: #151c24;
+
+    border:
+        1px solid
+        #2a3540;
+
+    color: #8c99a8;
+
+    font-size: 14px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: .2s;
+}
+
+
+.light-button.on {
+
+    background:
+        rgba(
+            65,
+            214,
+            255,
+            .12
+        );
+
+    border-color: #42d9ff;
+
+    color: #55e6ff;
+
+    box-shadow:
+        0 0 20px
+        rgba(66,217,255,.12);
+}
+
+
+/* =========================
+   SPEED LIMIT
+========================= */
+
+.limit-card {
+
+    margin-top: 15px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #111922,
+            #0b1016
+        );
+
+    border:
+        1px solid
+        #27323d;
+
+    border-radius: 24px;
+
+    padding: 25px;
+}
+
+
+.limit-header {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+}
+
+
+.limit-value {
+
+    font-size: 29px;
+
+    font-weight: bold;
+}
+
+
+.limit-value span {
+
+    color: #718096;
+
+    font-size: 12px;
+}
+
+
+.slider {
+
+    width: 100%;
+
+    margin-top: 25px;
+
+    appearance: none;
+
+    height: 7px;
+
+    border-radius: 20px;
+
+    background: #27313b;
+
+    outline: none;
+}
+
+
+.slider::-webkit-slider-thumb {
+
+    appearance: none;
+
+    width: 25px;
+    height: 25px;
+
+    border-radius: 50%;
+
+    background: #4b8cff;
+
+    border:
+        4px solid
+        #10161e;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 0 20px
+        rgba(75,140,255,.45);
+}
+
+
+.slider::-moz-range-thumb {
+
+    width: 21px;
+    height: 21px;
+
+    border-radius: 50%;
+
+    background: #4b8cff;
+
+    border: 3px solid #10161e;
+
+    cursor: pointer;
+}
+
+
+.slider-info {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    margin-top: 9px;
+
+    color: #687687;
+
+    font-size: 11px;
+}
+
+
+.private-info {
+
+    margin-top: 17px;
+
+    padding: 13px;
+
+    border-radius: 14px;
+
+    background: #18150d;
+
+    border:
+        1px solid
+        #40351d;
+
+    color: #b7a66f;
+
+    font-size: 11px;
+
+    line-height: 1.5;
+}
+
+
+/* =========================
+   QR SCANNER
+========================= */
+
+.qr-card {
+
+    margin-top: 15px;
+
+    background: #10161d;
+
+    border:
+        1px solid
+        #27323d;
+
+    border-radius: 24px;
+
+    padding: 23px;
+}
+
+
+.qr-button {
+
+    width: 100%;
+
+    margin-top: 17px;
+
+    padding: 15px;
+
+    border-radius: 15px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #182330,
+            #111820
+        );
+
+    color: white;
+
+    border:
+        1px solid
+        #2d3946;
+
+    font-size: 14px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+
+.qr-button:hover {
+
+    border-color: #4b8cff;
+}
+
+
+#qr-reader {
+
+    display: none;
+
+    width: 100%;
+
+    margin-top: 15px;
+
+    overflow: hidden;
+
+    border-radius: 18px;
+
+    background: #050608;
+}
+
+
+.qr-result {
+
+    display: none;
+
+    margin-top: 13px;
+
+    padding: 14px;
+
+    border-radius: 14px;
+
+    background: #151d26;
+
+    color: #7ee7c3;
+
+    font-size: 12px;
+
+    word-break: break-all;
+}
+
+
+/* =========================
+   BUTTONS
+========================= */
+
+.buttons {
+
+    display: grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap: 12px;
+
+    margin-top: 18px;
+}
+
+
+button {
+
+    font-family: inherit;
+}
+
+
+.connect,
+.disconnect {
+
+    padding: 16px;
+
+    border-radius: 16px;
+
+    font-size: 14px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+
+.connect {
+
+    background: white;
+
+    color: black;
+
+    border: none;
+}
+
+
+.disconnect {
+
+    background: #11171e;
+
+    color: #8996a5;
+
+    border:
+        1px solid
+        #29343f;
+}
+
+
+/* =========================
+   MESSAGE
+========================= */
+
+.message {
+
+    min-height: 20px;
+
+    margin-top: 17px;
+
+    text-align: center;
+
+    color: #6f7e8d;
+
+    font-size: 12px;
+}
+
+
+/* =========================
+   BACK
+========================= */
+
+.back {
+
+    display: block;
+
+    text-align: center;
+
+    margin-top: 25px;
+
+    color: #667586;
+
+    text-decoration: none;
+
+    font-size: 12px;
+}
+
+
+.back:hover {
+
+    color: white;
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width: 650px) {
+
+    .app {
+
+        width: 92%;
+
+        padding-top: 18px;
+    }
+
+
+    .grid {
+
+        grid-template-columns: 1fr;
+    }
+
+
+    .speed-card {
+
+        padding: 25px 20px;
+    }
+
+
+    .speed {
+
+        font-size: 82px;
+    }
+
+
+    .buttons {
+
+        grid-template-columns: 1fr;
+    }
+
+
+    .connection {
+
+        font-size: 10px;
+
+        padding:
+            8px
+            10px;
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<div class="app">
+
+
+<!-- =========================
+     HEADER
+========================= -->
+
+<header class="header">
+
+    <div class="logo">
+
+        <div class="logo-icon">
+            🛴
+        </div>
+
+        <div class="logo-text">
+
+            <h1>
+                MY SCOOTER
+            </h1>
+
+            <p>
+                XIAOMI SCOOTER DASHBOARD
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div
+        class="connection"
+        id="connection">
+
+        ● Nicht verbunden
+
+    </div>
+
+</header>
+
+
+<!-- =========================
+     SPEED
+========================= -->
+
+<section class="speed-card">
+
+    <div class="label">
+        Geschwindigkeit
+    </div>
+
+
+    <div class="speed">
+
+        <span id="speed">
+            0
+        </span>
+
+        <span class="speed-unit">
+            km/h
+        </span>
+
+    </div>
+
+
+    <div class="status">
+
+        <div
+            class="status-dot"
+            id="statusDot">
+        </div>
+
+        <span id="statusText">
+            Scooter nicht verbunden
+        </span>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     INFO
+========================= -->
+
+<div class="grid">
+
+
+    <!-- AKKU -->
+
+    <section class="card">
+
+        <div class="card-title">
+            Akku
+        </div>
+
+
+        <div class="card-value">
+
+            <span id="battery">
+                --
+            </span>%
+
+        </div>
+
+
+        <div class="battery-bar">
+
+            <div
+                class="battery-fill"
+                id="batteryFill">
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- DISTANZ -->
+
+    <section class="card">
+
+        <div class="card-title">
+            Distanz
+        </div>
+
+
+        <div class="card-value">
+
+            <span id="distance">
+                --
+            </span>
+
+            km
+
+        </div>
+
+    </section>
+
+</div>
+
+
+<!-- =========================
+     MODE
+========================= -->
+
+<div class="grid">
+
+
+    <section class="card">
+
+        <div class="card-title">
+            Fahrmodus
+        </div>
+
+
+        <div class="mode-buttons">
+
+
+            <button
+                class="mode active"
+                id="driveMode"
+                onclick="setMode('DRIVE')">
+
+                🚗 DRIVE
+
+            </button>
+
+
+            <button
+                class="mode"
+                id="sportMode"
+                onclick="setMode('SPORT')">
+
+                🚀 SPORT
+
+            </button>
+
+
+        </div>
+
+    </section>
+
+
+    <!-- LIGHT -->
+
+    <section class="card">
+
+        <div class="card-title">
+            Licht
+        </div>
+
+
+        <button
+            class="light-button"
+            id="lightButton"
+            onclick="toggleLight()">
+
+            💡 Licht AUS
+
+        </button>
+
+    </section>
+
+</div>
+
+
+<!-- =========================
+     SPEED LIMIT
+========================= -->
+
+<section class="limit-card">
+
+
+    <div class="limit-header">
+
+        <div>
+
+            <div class="label">
+                Geschwindigkeitslimit
+            </div>
+
+
+            <div
+                style="
+                color:#718096;
+                font-size:12px;
+                margin-top:6px;
+                ">
+
+                Maximale Geschwindigkeit
+
+            </div>
+
+        </div>
+
+
+        <div class="limit-value">
+
+            <span id="limitValue">
+                20
+            </span>
+
+            <span>
+                km/h
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <input
+        type="range"
+        id="speedSlider"
+        class="slider"
+        min="5"
+        max="45"
+        value="20"
+        step="1"
+        oninput="changeLimit(this.value)"
+    >
+
+
+    <div class="slider-info">
+
+        <span>
+            5 km/h
+        </span>
+
+        <span>
+            45 km/h
+        </span>
+
+    </div>
+
+
+    <div class="private-info">
+
+        ⚠️ Diese Einstellung wird momentan nur
+        auf der Website angezeigt. Die tatsächliche
+        Geschwindigkeit des Scooters wird dadurch
+        noch nicht verändert.
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     QR SCANNER
+========================= -->
+
+<section class="qr-card">
+
+
+    <div class="card-title">
+        SCOOTER IDENTIFIZIEREN
+    </div>
+
+
+    <button
+        class="qr-button"
+        onclick="startQRScanner()">
+
+        📷 QR-Code scannen
+
+    </button>
+
+
+    <div id="qr-reader"></div>
+
+
+    <div
+        class="qr-result"
+        id="qrResult">
+
+        <b>Scooter-ID:</b>
+
+        <br>
+
+        <span id="qrText"></span>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     BLUETOOTH
+========================= -->
+
+<div class="buttons">
+
+
+    <button
+        class="connect"
+        onclick="connectScooter()">
+
+        🔵 Scooter verbinden
+
+    </button>
+
+
+    <button
+        class="disconnect"
+        onclick="disconnectScooter()">
+
+        ⏹ Trennen
+
+    </button>
+
+
+</div>
+
+
+<div
+    class="message"
+    id="message">
+</div>
+
+
+<a
+    href="index.html"
+    class="back">
+
+    ← Zurück zur Startseite
+
+</a>
+
+
+</div>
+
+
+<script>
+
+
+/* =========================
+   VARIABLEN
+========================= */
+
+let bluetoothDevice = null;
+
+let qrScanner = null;
+
+let scooterQR = null;
+
+let lightOn = false;
+
+let currentMode = "DRIVE";
+
+
+/* =========================
+   GESCHWINDIGKEIT
+========================= */
+
+function changeLimit(value) {
+
+    document
+        .getElementById("limitValue")
+        .innerText = value;
+
+
+    localStorage.setItem(
+        "scooterSpeedLimit",
+        value
+    );
+
+
+    document
+        .getElementById("message")
+        .innerText =
+        "Geschwindigkeitslimit: "
+        + value
+        + " km/h";
+
+}
+
+
+/* =========================
+   GESPEICHERTES LIMIT
+========================= */
+
+const savedLimit =
+    localStorage.getItem(
+        "scooterSpeedLimit"
+    );
+
+
+if (savedLimit) {
+
+    document
+        .getElementById("speedSlider")
+        .value = savedLimit;
+
+
+    document
+        .getElementById("limitValue")
+        .innerText = savedLimit;
+
+}
+
+
+/* =========================
+   FAHRMODUS
+========================= */
+
+function setMode(mode) {
+
+    currentMode = mode;
+
+
+    const drive =
+        document.getElementById(
+            "driveMode"
+        );
+
+
+    const sport =
+        document.getElementById(
+            "sportMode"
+        );
+
+
+    drive.classList.remove("active");
+
+    sport.classList.remove("active");
+
+
+    if (mode === "DRIVE") {
+
+        drive.classList.add("active");
+
+    }
+
+
+    if (mode === "SPORT") {
+
+        sport.classList.add("active");
+
+    }
+
+
+    document
+        .getElementById("message")
+        .innerText =
+        "Modus: " + mode;
+
+}
+
+
+/* =========================
+   LICHT
+========================= */
+
+function toggleLight() {
+
+    lightOn = !lightOn;
+
+
+    const button =
+        document.getElementById(
+            "lightButton"
+        );
+
+
+    if (lightOn) {
+
+        button.classList.add("on");
+
+        button.innerText =
+            "💡 Licht AN";
+
+    }
+
+    else {
+
+        button.classList.remove("on");
+
+        button.innerText =
+            "💡 Licht AUS";
+
+    }
+
+
+    document
+        .getElementById("message")
+        .innerText =
+        lightOn
+        ? "Licht eingeschaltet"
+        : "Licht ausgeschaltet";
+
+}
+
+
+/* =========================
+   QR SCANNER START
+========================= */
+
+function startQRScanner() {
+
+    const reader =
+        document.getElementById(
+            "qr-reader"
+        );
+
+
+    reader.style.display =
+        "block";
+
+
+    if (qrScanner) {
+
+        return;
+
+    }
+
+
+    qrScanner =
+        new Html5Qrcode(
+            "qr-reader"
+        );
+
+
+    qrScanner.start(
+
+        {
+            facingMode:
+                "environment"
+        },
+
+        {
+
+            fps: 10,
+
+            qrbox: {
+                width: 250,
+                height: 250
+            }
+
+        },
+
+
+        function(decodedText) {
+
+
+            scooterQR =
+                decodedText;
+
+
+            document
+                .getElementById(
+                    "qrText"
+                )
+                .innerText =
+                decodedText;
+
+
+            document
+                .getElementById(
+                    "qrResult"
+                )
+                .style.display =
+                "block";
+
+
+            document
+                .getElementById(
+                    "message"
+                )
+                .innerText =
+                "✓ QR-Code erkannt";
+
+
+            stopQRScanner();
+
+        },
+
+
+        function(errorMessage) {
+
+            /*
+             * Wird während der Suche
+             * sehr oft aufgerufen.
+             *
+             * Deshalb nichts anzeigen.
+             */
+
+        }
+
+    )
+
+
+    .catch(function(error) {
+
+        console.log(error);
+
+
+        document
+            .getElementById(
+                "message"
+            )
+            .innerText =
+            "Kamera konnte nicht geöffnet werden.";
+
+    });
+
+}
+
+
+/* =========================
+   QR SCANNER STOPP
+========================= */
+
+function stopQRScanner() {
+
+    if (!qrScanner) {
+
+        return;
+
+    }
+
+
+    qrScanner.stop()
+
+        .then(function() {
+
+
+            qrScanner.clear();
+
+
+            qrScanner = null;
+
+
+            document
+                .getElementById(
+                    "qr-reader"
+                )
+                .style.display =
+                "none";
+
+
+        })
+
+
+        .catch(function(error) {
+
+            console.log(error);
+
+        });
+
+}
+
+
+/* =========================
+   BLUETOOTH
+========================= */
+
+async function connectScooter() {
+
+
+    document
+        .getElementById(
+            "message"
+        )
+        .innerText = "";
+
+
+    if (!navigator.bluetooth) {
+
+        document
+            .getElementById(
+                "statusText"
+            )
+            .innerText =
+            "Bluetooth nicht unterstützt";
+
+
+        return;
+
+    }
+
+
+    try {
+
+
+        document
+            .getElementById(
+                "statusText"
+            )
+            .innerText =
+            "Bluetooth-Geräte werden gesucht...";
+
+
+        bluetoothDevice =
+            await navigator.bluetooth.requestDevice({
+
+                acceptAllDevices:
+                    true
+
+            });
+
+
+        const name =
+            bluetoothDevice.name
+            ||
+            "Bluetooth-Gerät";
+
+
+        document
+            .getElementById(
+                "connection"
+            )
+            .innerText =
+            "● Verbunden";
+
+
+        document
+            .getElementById(
+                "statusText"
+            )
+            .innerText =
+            name;
+
+
+        document
+            .getElementById(
+                "statusDot"
+            )
+            .style.background =
+            "#42e6a4";
+
+
+        document
+            .getElementById(
+                "statusDot"
+            )
+            .style.boxShadow =
+            "0 0 12px #42e6a4";
+
+
+        document
+            .getElementById(
+                "message"
+            )
+            .innerText =
+            "✓ Bluetooth-Gerät ausgewählt";
+
+
+        console.log(
+            "Bluetooth:",
+            bluetoothDevice
+        );
+
+
+        console.log(
+            "QR-Code:",
+            scooterQR
+        );
+
+    }
+
+
+    catch(error) {
+
+
+        console.log(error);
+
+
+        document
+            .getElementById(
+                "statusText"
+            )
+            .innerText =
+            "Nicht verbunden";
+
+
+        document
+            .getElementById(
+                "message"
+            )
+            .innerText =
+            "Bluetooth-Verbindung abgebrochen.";
+
+    }
+
+}
+
+
+/* =========================
+   TRENNEN
+========================= */
+
+function disconnectScooter() {
+
+
+    if (
+        bluetoothDevice &&
+        bluetoothDevice.gatt &&
+        bluetoothDevice.gatt.connected
+    ) {
+
+        bluetoothDevice.gatt.disconnect();
+
+    }
+
+
+    bluetoothDevice = null;
+
+
+    document
+        .getElementById(
+            "connection"
+        )
+        .innerText =
+        "● Nicht verbunden";
+
+
+    document
+        .getElementById(
+            "statusText"
+        )
+        .innerText =
+        "Scooter nicht verbunden";
+
+
+    document
+        .getElementById(
+            "statusDot"
+        )
+        .style.background =
+        "#64748b";
+
+
+    document
+        .getElementById(
+            "statusDot"
+        )
+        .style.boxShadow =
+        "none";
+
+
+    document
+        .getElementById(
+            "message"
+        )
+        .innerText =
+        "Scooter getrennt";
+
+
+    document
+        .getElementById(
+            "speed"
+        )
+        .innerText =
+        "0";
+
+
+    document
+        .getElementById(
+            "battery"
+        )
+        .innerText =
+        "--";
+
+
+    document
+        .getElementById(
+            "batteryFill"
+        )
+        .style.width =
+        "0%";
+
+
+    document
+        .getElementById(
+            "distance"
+        )
+        .innerText =
+        "--";
+
+}
+
+</script>
+
+</body>
+</html>
