@@ -1886,6 +1886,57 @@ function disconnectScooter() {
 }
 
 </script>
+}
 
+/* =========================
+   ZERO START
+========================= */
+
+let zeroStart =
+    localStorage.getItem("zeroStart") === "true";
+
+function updateZeroStartButton() {
+
+    const button =
+        document.getElementById("zeroStartButton");
+
+    if (!button) return;
+
+    if (zeroStart) {
+
+        button.classList.add("on");
+
+        button.innerText =
+            "🚀 Zero Start AN";
+
+    } else {
+
+        button.classList.remove("on");
+
+        button.innerText =
+            "🚀 Zero Start AUS";
+    }
+}
+
+function toggleZeroStart() {
+
+    zeroStart = !zeroStart;
+
+    localStorage.setItem(
+        "zeroStart",
+        zeroStart
+    );
+
+    updateZeroStartButton();
+
+    document
+        .getElementById("message")
+        .innerText =
+        zeroStart
+            ? "Zero Start aktiviert"
+            : "Zero Start deaktiviert";
+}
+
+updateZeroStartButton();
 </body>
 </html>
